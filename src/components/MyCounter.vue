@@ -1,4 +1,5 @@
 <template>
+  <h2>{{ title }}</h2>
   <section>
     <h3>Counter: {{ counter }}</h3>
     <h3>Square: {{ squareCounter }}</h3>
@@ -25,6 +26,7 @@ import { ref, computed } from 'vue'
 
 interface Props {
   value?: number
+  title?: string
 }
 const props = defineProps<Props>()
 
