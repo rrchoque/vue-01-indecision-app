@@ -1,5 +1,5 @@
 <template>
-  <h1>Mi primera app</h1>
+  <h1 class="text-3xl font-bold underline">Mi primera App!</h1>
   <hr />
   <MyCounter :value="5" title="Mi contador" />
   <MyCounterScript :value="10" title="Mi contador" />

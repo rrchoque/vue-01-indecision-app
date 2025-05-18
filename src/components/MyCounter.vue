@@ -44,7 +44,18 @@ const squareCounter = computed(() => {
 </script>
 
 <style scoped>
-h1 {
-  color: red;
+@reference "@/styles.css";
+
+h2 {
+  @apply text-2xl font-bold text-gray-800 mb-4;
+}
+h3 {
+  @apply text-xl font-semibold text-gray-700 mb-2;
+}
+section {
+  @apply bg-white p-4 rounded shadow-md;
+}
+button {
+  @apply text-white font-bold py-2 px-4 rounded;
 }
 </style>
