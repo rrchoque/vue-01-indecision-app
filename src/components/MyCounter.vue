@@ -44,7 +44,7 @@ const squareCounter = computed(() => {
 </script>
 
 <style scoped>
-@reference "@/styles.css";
+@reference "tailwindcss";
 
 h2 {
   @apply text-2xl font-bold text-gray-800 mb-4;
@@ -52,10 +52,7 @@ h2 {
 h3 {
   @apply text-xl font-semibold text-gray-700 mb-2;
 }
-section {
-  @apply bg-white p-4 rounded shadow-md;
-}
 button {
-  @apply text-white font-bold py-2 px-4 rounded;
+  @apply text-white font-bold py-2 px-4 rounded bg-blue-500 hover:bg-blue-700 mx-2;
 }
 </style>
