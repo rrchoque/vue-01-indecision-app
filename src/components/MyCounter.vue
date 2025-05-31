@@ -11,7 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { useCounter } from '@/composables/useCounter'
+//import { ref, computed } from 'vue'
 
 // Forma 1
 // const props = defineProps({
@@ -30,17 +31,18 @@ interface Props {
 }
 const props = defineProps<Props>()
 
-const counter = ref(props.value || 0)
+// const counter = ref(props.value || 0)
 
-const increment = () => {
-  counter.value++
-}
-const decrement = () => {
-  counter.value--
-}
-const squareCounter = computed(() => {
-  return counter.value * counter.value
-})
+// const increment = () => {
+//   counter.value++
+// }
+// const decrement = () => {
+//   counter.value--
+// }
+// const squareCounter = computed(() => {
+//   return counter.value * counter.value
+// })
+const { counter, squareCounter, increment, decrement } = useCounter(props.value ?? 0)
 </script>
 
 <style scoped>
