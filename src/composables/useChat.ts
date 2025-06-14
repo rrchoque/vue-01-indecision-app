@@ -1,4 +1,6 @@
+import { sleep } from '@/helpers/sleep'
 import type { ChatMessage } from '@/interfaces/chat-message.interface'
+import type { YesNoResponse } from '@/interfaces/yes-no-response.interface'
 import { ref } from 'vue'
 
 export const useChat = () => {
@@ -26,12 +28,42 @@ export const useChat = () => {
     },
   ])
 
-  const onNewMessage = (text: string) => {
+  const getResponse = async () => {
+    // llamar a api https://yesno.wtf/api
+    try {
+      const response = await fetch('https://yesno.wtf/api')
+      const data = (await response.json()) as YesNoResponse
+      return data
+    } catch (error) {
+      console.error('Error fetching response:', error)
+      return 'No pude obtener una respuesta.'
+    }
+  }
+
+  const onNewMessage = async (text: string) => {
+    if (!text.trim()) return
+
     messages.value.push({
       id: new Date().getTime(),
       message: text,
       itsMine: true,
     })
+
+    // Evaluar si termina en una pregunta
+    const isQuestion = text.trim().endsWith('?')
+
+    if (isQuestion) {
+      await sleep(1.5) // Simular un retraso de 1.5 segundos
+      const { answer, image } = await getResponse()
+      messages.value.push({
+        id: new Date().getTime() + 1,
+        message: answer,
+        itsMine: false,
+        image: image || undefined, // Si no hay imagen, no incluirla
+      })
+    } else {
+      return // Si no es una pregunta, no hacer nada
+    }
   }
 
   return {
