@@ -6,7 +6,7 @@
 
     <ChatMessages :messages="messages" />
 
-    <MessageBox />
+    <MessageBox @send-message="onNewMessage($event)" />
   </div>
 </template>
 
@@ -39,4 +39,12 @@ const messages = ref<ChatMessage[]>([
     image: 'https://yesno.wtf/assets/yes/13-c3082a998e7758be8e582276f35d1336.gif',
   },
 ])
+
+const onNewMessage = (text: string) => {
+  messages.value.push({
+    id: new Date().getTime(),
+    message: text,
+    itsMine: true,
+  })
+}
 </script>
