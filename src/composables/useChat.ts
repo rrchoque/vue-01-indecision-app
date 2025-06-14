@@ -54,13 +54,22 @@ export const useChat = () => {
 
     if (isQuestion) {
       await sleep(1.5) // Simular un retraso de 1.5 segundos
-      const { answer, image } = await getResponse()
-      messages.value.push({
-        id: new Date().getTime() + 1,
-        message: answer,
-        itsMine: false,
-        image: image || undefined, // Si no hay imagen, no incluirla
-      })
+      const response = await getResponse()
+      if (typeof response === 'string') {
+        messages.value.push({
+          id: new Date().getTime() + 1,
+          message: response,
+          itsMine: false,
+        })
+      } else {
+        const { answer, image } = response
+        messages.value.push({
+          id: new Date().getTime() + 1,
+          message: answer,
+          itsMine: false,
+          image: image || undefined, // Si no hay imagen, no incluirla
+        })
+      }
     } else {
       return // Si no es una pregunta, no hacer nada
     }
