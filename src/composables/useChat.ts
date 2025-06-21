@@ -43,7 +43,7 @@ export const useChat = () => {
   const onNewMessage = async (text: string) => {
     if (!text.trim()) return
 
-    messages.value.push({
+    addNewMessage({
       id: new Date().getTime(),
       message: text,
       itsMine: true,
@@ -55,15 +55,13 @@ export const useChat = () => {
     if (isQuestion) {
       await sleep(1.5) // Simular un retraso de 1.5 segundos
       const response = await getResponse()
+
       if (typeof response === 'string') {
-        messages.value.push({
-          id: new Date().getTime() + 1,
-          message: response,
-          itsMine: false,
-        })
+        return // Si la respuesta es string es un error en la solicitu, asi que no hace nada
       } else {
         const { answer, image } = response
-        messages.value.push({
+
+        addNewMessage({
           id: new Date().getTime() + 1,
           message: answer,
           itsMine: false,
@@ -73,6 +71,10 @@ export const useChat = () => {
     } else {
       return // Si no es una pregunta, no hacer nada
     }
+  }
+
+  const addNewMessage = (message: ChatMessage) => {
+    messages.value = [...messages.value, message]
   }
 
   return {
